@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: field-survey-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    numInstances: 1          # ต้องเป็น 1 (คิวเขียนข้อมูลเป็น in-process) ดู docs/SECURITY.md
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: ALLOWED_ORIGINS, sync: false }
+      - { key: GOOGLE_SERVICE_ACCOUNT_JSON_BASE64, sync: false }
+      - { key: SPREADSHEET_ID, sync: false }
+      - { key: DRIVE_FOLDER_ID, sync: false }
+      - { key: EDIT_TOKEN_SECRET, generateValue: true }
+      - { key: WEBGIS_TOKEN_HASHES, sync: false }
+      - { key: TURNSTILE_SECRET_KEY, sync: false }
+      - { key: PUBLIC_SURVEYOR_NAME, value: "false" }
